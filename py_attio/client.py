@@ -261,6 +261,32 @@ class Client(BaseClient):
         """Deletes a comment by ID. If deleting the head of a thread, messages are also deleted."""
         return self._request("DELETE", f"/comments/{comment_id}")
 
+    # Meetings
+
+    def list_meetings(self, query: Dict[str, Any]):
+        """Lists all meetings in the workspace using a deterministic sort order."""
+        return self._request("GET", "/meetings", params=query)
+
+    def get_meetings(self, meeting_id: str):
+        """Get a single meeting by ID."""
+        return self._request("GET", f"/meetings/{meeting_id}")
+
+    # Call recordings
+
+    def get_meetings(self, meeting_id: str):
+        """List all call recordings for a meeting."""
+        return self._request("GET", f"/meetings/{meeting_id}/call_recordings")
+
+    def get_meetings(self, meeting_id: str, call_recording_id: str):
+        """Get a single call recording by ID."""
+        return self._request("GET", f"/meetings/{meeting_id}/call_recordings/{call_recording_id}")
+
+    # Transcripts
+
+    def get_transcript(self, meeting_id: str, call_recording_id: str):
+        """Get the transcript for a call recording."""
+        return self._request("GET", f"/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript")
+
     # Webhooks
 
     def list_webhooks(self, query=None):
