@@ -130,11 +130,14 @@ class Client(BaseClient):
         """Deletes a single record (e.g. a company or person) by ID."""
         return self._request("DELETE", f"/objects/{object_id}/records/{record_id}")
 
-    def list_record_values(self, object_id: str, record_id: str, attribute: str):
+    def list_record_values(self, object_id: str, record_id: str, attribute: str, query=None):
         """Gets all values for a given attribute on a record."""
+        if query is None:
+            query = {}
         return self._request(
             "GET",
             f"/objects/{object_id}/records/{record_id}/attributes/{attribute}/values",
+            params=query
         )
 
     def list_record_entries(self, object_id: str, record_id: str):
