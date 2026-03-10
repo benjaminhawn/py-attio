@@ -290,6 +290,32 @@ class Client(BaseClient):
         """Get the transcript for a call recording."""
         return self._request("GET", f"/meetings/{meeting_id}/call_recordings/{call_recording_id}/transcript")
 
+    # Files
+
+    def list_files(self, query: Dict[str, Any]):
+        """Lists internal files, externally connected files and folders across the workspace."""
+        return self._request("GET", f"/files", params=query)
+
+    def create_folder(self, payload: Dict[str, Any]):
+        """Creates a native folder entry or a connected file/folder entry on an object record."""
+        return self._request("POST", f"/files", json=payload)
+
+    def upload_file(self, payload: Dict[str, Any]):
+        """Uploads a file to native Attio storage for a record."""
+        return self._request("POST", f"/files/upload", json=payload)
+
+    def get_file(self, file_id: str):
+        """Get a single file entry by ID."""
+        return self._request("GET", f"/files/{file_id}")
+
+    def delete_file(self, file_id: str):
+        """Delete a single file by ID."""
+        return self._request("DELETE", f"/files/{file_id}")
+
+    def download_file(self, file_id: str):
+        """Downloads a file by redirecting to a signed URL."""
+        return self._request("GET", f"/files/{file_id}/download")
+
     # Webhooks
 
     def list_webhooks(self, query=None):
